@@ -1,0 +1,152 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2025-01-27",
+  "rules": {
+    "documentation_location": {
+      "enabled": true,
+      "path": "wiki",
+      "description": "Toute la documentation du projet doit être écrite et maintenue dans le dossier 'wiki'",
+      "mandatory": true
+    },
+    "temporary_documentation_location": {
+      "enabled": true,
+      "path": "docs",
+      "description": "Les documents temporaires, techniques, ou de diagnostic doivent être placés dans le dossier 'docs/' du projet concerné (ex: RMDB-minimal/docs/)",
+      "mandatory": true,
+      "examples": [
+        "Guides de correction (FIX-*.md)",
+        "Documentation de diagnostic (TROUBLESHOOTING-*.md)",
+        "Documentation d'audit (AUDIT-*.md)",
+        "Résumés de corrections (RESUME-*.md)",
+        "Documentation technique temporaire (TEST-*.md)"
+      ],
+      "note": "Ces fichiers doivent être déplacés dans 'docs/' et non à la racine du projet"
+    },
+    "documentation_structure": {
+      "enabled": true,
+      "structure": {
+        "index_file": "00-INDEX.md",
+        "main_files": [
+          "01-INTRODUCTION.md",
+          "02-INSTALLATION.md",
+          "03-DEPLOYMENT.md",
+          "04-CONFIGURATION.md",
+          "05-UTILISATION.md",
+          "06-ARCHITECTURE.md",
+          "07-TROUBLESHOOTING.md",
+          "08-API.md",
+          "09-DEVELOPMENT.md"
+        ],
+        "technical_docs": "docs/",
+        "specification": "rmdb.spec.json"
+      },
+      "description": "La structure du wiki doit suivre l'organisation définie dans 00-INDEX.md"
+    },
+    "documentation_workflow": {
+      "enabled": true,
+      "workflow": [
+        {
+          "step": 1,
+          "action": "Lors de l'ajout d'une nouvelle fonctionnalité",
+          "requirement": "Mettre à jour la documentation correspondante dans le dossier wiki"
+        },
+        {
+          "step": 2,
+          "action": "Lors de la modification d'un module",
+          "requirement": "Mettre à jour MODULES.md et la documentation technique dans docs/"
+        },
+        {
+          "step": 3,
+          "action": "Lors de l'ajout d'un nouveau service ou protocole",
+          "requirement": "Créer la documentation dans docs/services/ ou docs/protocols/"
+        },
+        {
+          "step": 4,
+          "action": "Lors de la modification de la configuration",
+          "requirement": "Mettre à jour 04-CONFIGURATION.md"
+        },
+        {
+          "step": 5,
+          "action": "Lors de la correction d'un bug",
+          "requirement": "Ajouter la solution dans 07-TROUBLESHOOTING.md si applicable"
+        }
+      ],
+      "description": "Workflow de documentation à suivre lors du développement"
+    },
+    "documentation_standards": {
+      "enabled": true,
+      "standards": {
+        "format": "Markdown (.md)",
+        "encoding": "UTF-8",
+        "language": "Français (avec sections en anglais pour compatibilité)",
+        "structure": "Hiérarchie claire avec headers",
+        "code_blocks": "Syntaxe highlightée",
+        "links": "Liens internes et externes",
+        "completeness": "Couverture complète des aspects du projet"
+      },
+      "description": "Standards à respecter pour toute documentation"
+    },
+    "documentation_maintenance": {
+      "enabled": true,
+      "requirements": [
+        "La documentation doit être maintenue à jour avec le code",
+        "Tous les exemples de code doivent être testés et fonctionnels",
+        "Les liens internes doivent être valides",
+        "L'index principal (00-INDEX.md) doit être mis à jour lors de l'ajout de nouvelles sections"
+      ],
+      "description": "Exigences de maintenance de la documentation"
+    },
+    "documentation_audience": {
+      "enabled": true,
+      "audiences": [
+        {
+          "type": "humans",
+          "description": "Développeurs, administrateurs, utilisateurs",
+          "requirements": [
+            "Documentation claire et accessible",
+            "Exemples pratiques",
+            "Guides pas à pas",
+            "Navigation intuitive"
+          ]
+        },
+        {
+          "type": "ai_systems",
+          "description": "Systèmes IA, assistants automatisés",
+          "requirements": [
+            "Spécification machine-readable (rmdb.spec.json)",
+            "Structure JSON claire",
+            "Documentation technique détaillée",
+            "Format standardisé"
+          ]
+        }
+      ],
+      "description": "La documentation doit servir à la fois les humains et les systèmes IA"
+    },
+    "documentation_organization": {
+      "enabled": true,
+      "organization": {
+        "principle": "Toute documentation doit être organisée de manière logique et précise",
+        "purpose": "Le wiki doit décrire le projet de manière claire et rigoureuse",
+        "usage": "Le wiki doit servir de base tutorielle et documentaire",
+        "accessibility": "Accessible pour l'homme comme pour l'IA"
+      },
+      "description": "Principes d'organisation de la documentation"
+    }
+  },
+  "enforcement": {
+    "strict": true,
+    "validation": [
+      "Vérifier que toute nouvelle documentation est dans le dossier wiki",
+      "Vérifier que la structure est respectée",
+      "Vérifier que les liens sont valides",
+      "Vérifier que les exemples fonctionnent"
+    ]
+  },
+  "notes": [
+    "Cette règle doit être respectée à chaque ajout ou modification de documentation",
+    "Le dossier wiki doit être nourri au fur et à mesure du développement du projet",
+    "Toute documentation externe au dossier wiki doit être déplacée dans le wiki",
+    "L'index principal (00-INDEX.md) doit être la porte d'entrée principale"
+  ]
+}
+

@@ -1,0 +1,154 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2025-12-29",
+  "description": "Règles d'organisation des fichiers pour tous les projets",
+  "rules": {
+    "scripts_organization": {
+      "enabled": true,
+      "mandatory": true,
+      "rule": "Tous les scripts doivent être placés dans un dossier 'scripts/'",
+      "path": "scripts/",
+      "description": "Tous les scripts shell (.sh), Python (.py), ou autres langages de script doivent être organisés dans le dossier 'scripts/' du projet",
+      "applies_to": [
+        "*.sh",
+        "*.py",
+        "*.bash",
+        "*.zsh",
+        "scripts de test",
+        "scripts de déploiement",
+        "scripts d'installation",
+        "scripts de diagnostic",
+        "scripts de correction",
+        "scripts utilitaires"
+      ],
+      "exceptions": [
+        "install.sh peut rester à la racine du projet s'il est le point d'entrée principal",
+        "Makefile, build.sh, ou scripts de build principaux peuvent rester à la racine"
+      ],
+      "examples": {
+        "correct": [
+          "scripts/test-interface.sh",
+          "scripts/compile-and-restart.sh",
+          "scripts/fix-permissions.sh",
+          "scripts/diagnose-login.sh",
+          "scripts/cleanup.sh"
+        ],
+        "incorrect": [
+          "test-interface.sh (à la racine)",
+          "fix-permissions.sh (à la racine)",
+          "cleanup.sh (à la racine)"
+        ]
+      }
+    },
+    "documentation_organization": {
+      "enabled": true,
+      "mandatory": true,
+      "rule": "Toute documentation produite doit être placée dans un dossier 'docs/'",
+      "path": "docs/",
+      "description": "Tous les fichiers de documentation markdown (.md), à l'exception du README.md principal, doivent être organisés dans le dossier 'docs/' du projet",
+      "applies_to": [
+        "*.md (sauf README.md à la racine)",
+        "Guides de correction",
+        "Documentation de diagnostic",
+        "Documentation d'audit",
+        "Guides de démarrage rapide",
+        "Documentation technique",
+        "Résumés de session"
+      ],
+      "exceptions": [
+        "README.md peut rester à la racine du projet",
+        "CHANGELOG.md peut rester à la racine du projet",
+        "LICENSE.md peut rester à la racine du projet",
+        "CONTRIBUTING.md peut rester à la racine du projet"
+      ],
+      "examples": {
+        "correct": [
+          "docs/FIX-NAVIGATION.md",
+          "docs/TROUBLESHOOTING-LOGIN.md",
+          "docs/AUDIT-DASHBOARD.md",
+          "docs/CORRECTION-CHEMINS.md",
+          "docs/QUICK-FIX-LOGIN.md"
+        ],
+        "incorrect": [
+          "FIX-NAVIGATION.md (à la racine)",
+          "TROUBLESHOOTING-LOGIN.md (à la racine)",
+          "AUDIT-DASHBOARD.md (à la racine)"
+        ]
+      }
+    },
+    "automatic_organization": {
+      "enabled": true,
+      "description": "Les fichiers doivent être automatiquement placés au bon endroit lors de leur création",
+      "workflow": [
+        {
+          "step": 1,
+          "action": "Lors de la création d'un script",
+          "requirement": "Créer le fichier directement dans scripts/ au lieu de la racine"
+        },
+        {
+          "step": 2,
+          "action": "Lors de la création d'une documentation",
+          "requirement": "Créer le fichier directement dans docs/ au lieu de la racine"
+        },
+        {
+          "step": 3,
+          "action": "Si des fichiers sont à la racine",
+          "requirement": "Les déplacer immédiatement dans le bon dossier"
+        }
+      ]
+    },
+    "script_standards": {
+      "enabled": true,
+      "description": "Standards pour tous les scripts",
+      "requirements": [
+        "Tous les scripts doivent avoir un shebang (#!/bin/bash, #!/usr/bin/env python3, etc.)",
+        "Tous les scripts doivent être exécutables (chmod +x)",
+        "Tous les scripts doivent utiliser des chemins relatifs basés sur SCRIPT_DIR",
+        "Tous les scripts doivent documenter leur usage en commentaire en début de fichier"
+      ],
+      "path_template": {
+        "description": "Template pour les chemins dans les scripts bash",
+        "template": [
+          "#!/bin/bash",
+          "#",
+          "# Description du script",
+          "#",
+          "",
+          "# Chemins du projet",
+          "SCRIPT_DIR=\"$(cd \"$(dirname \"${BASH_SOURCE[0]}\")\" && pwd)\"",
+          "PROJECT_DIR=\"$(dirname \"$SCRIPT_DIR\")\"",
+          "SCRIPTS_DIR=\"$PROJECT_DIR/scripts\"",
+          "DOCS_DIR=\"$PROJECT_DIR/docs\"",
+          "LOG_DIR=\"$PROJECT_DIR/logs\""
+        ]
+      }
+    }
+  },
+  "enforcement": {
+    "strict": true,
+    "automatic": true,
+    "validation": [
+      "Vérifier qu'aucun script n'est à la racine (sauf exceptions)",
+      "Vérifier qu'aucune documentation n'est à la racine (sauf exceptions)",
+      "Vérifier que les dossiers scripts/ et docs/ existent",
+      "Vérifier que tous les scripts dans scripts/ sont exécutables"
+    ],
+    "auto_fix": [
+      "Créer les dossiers scripts/ et docs/ s'ils n'existent pas",
+      "Déplacer automatiquement les fichiers mal placés",
+      "Mettre à jour les références de chemins dans les fichiers"
+    ]
+  },
+  "integration": {
+    "with_documentation_rules": "Complémente documentation-rules.json pour les fichiers markdown",
+    "with_standards": "Respecte les standards définis dans standards.json",
+    "priority": "HIGH"
+  },
+  "notes": [
+    "Cette règle doit être appliquée dès la création de tout nouveau fichier",
+    "Les projets existants doivent être réorganisés pour respecter cette structure",
+    "Les scripts doivent utiliser des chemins relatifs pour fonctionner depuis n'importe quel emplacement",
+    "La documentation dans docs/ est distincte de la documentation dans wiki/"
+  ]
+}
+
